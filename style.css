@@ -863,7 +863,349 @@ color: var(--text-color);
    max-width: 100%;
 }
 
-/* Responsividade */
+/* Estilos do Modal tabela de preços*/
+.custon-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000; /* Mais alto para garantir visibilidade */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.95); /* Fundo quase opaco */
+    
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px); /* Mais desfoque */
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-contents {
+    background-color: var(--background-lighter);
+    margin: auto;
+    padding: 50px;
+    border-radius: 18px; /* Mais arredondado */
+    width: 95%;
+    max-width: 1400px; /* Ainda mais largo */
+    position: relative;
+    box-shadow: 0 20px 60px var(--shadow-heavy), 0 0 50px var(--primary-color); /* Sombra intensa e brilho */
+    animation: slideInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* Animação mais elaborada */
+    border: 2px solid var(--border-glow); /* Borda brilhante */
+    transform: scale(0.9);
+    opacity: 0;
+}
+
+@keyframes slideInUp {
+    from {transform: translateY(100px) scale(0.8); opacity: 0;}
+    to {transform: translateY(0) scale(1); opacity: 1;}
+}
+
+/* Quando o modal está aberto, aplicar a animação */
+.custon-modal[style*="display: flex"] .modal-contents {
+    animation-name: slideInUp;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+}
+
+.close-button {
+    color: var(--secondary-color);
+    font-size: 40px;
+    font-weight: 300; /* Menos negrito para um X mais elegante */
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 50%; /* Faz o "X" parecer um botão flutuante */
+    padding: 5px 15px;
+    line-height: 1;
+    background: rgba(255, 255, 255, 0.05); /* Fundo sutil */
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--accent-color);
+    transform: rotate(180deg) scale(1.1); /* Rotação completa */
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px var(--accent-color);
+}
+
+.modal-contents h2 {
+    text-align: center;
+    color: var(--accent-color);
+    margin-bottom: 50px;
+    font-size: 3em;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 15px var(--accent-color), 0 0 30px var(--accent-color); /* Efeito neon */
+    text-transform: uppercase;
+}
+
+/* Estilos dos Cartões de Projeto */
+.price-table-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Cartões maiores */
+    gap: 40px; /* Espaçamento generoso */
+    padding: 20px;
+}
+
+.project-cards {
+    background-color: var(--background-dark);
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Borda mais discreta */
+    border-radius: 15px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 10px 30px var(--shadow-light); /* Sombra mais suave inicialmente */
+    transition: all 0.4s ease-out; /* Transição mais suave */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    position: relative; /* Para o efeito de gradiente na borda */
+}
+
+/* Efeito de borda gradiente no hover */
+.project-cards::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 20px; /* Um pouco maior que o cartão */
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    z-index: -1;
+    filter: blur(15px); /* Efeito de brilho externo */
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+}
+
+.project-cards:hover::before {
+    opacity: 1;
+}
+
+.project-cards:hover {
+    transform: translateY(-12px) scale(1.03); /* Elevação e zoom mais acentuados */
+    box-shadow: 0 15px 45px var(--shadow-heavy); /* Sombra mais forte no hover */
+    border-color: transparent; /* Remove a borda padrão para dar lugar ao brilho */
+}
+
+.project-cards img {
+    max-width: 100%;
+    height: 250px; /* Altura maior para as imagens */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-cards:hover img {
+    transform: scale(1.05); /* Zoom mais notável */
+}
+
+.project-cards h3 {
+    color: var(--secondary-color);
+    margin-bottom: 18px;
+    font-size: 2em;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(0, 206, 209, 0.3);
+}
+
+.project-cards p {
+    font-size: 1.05em;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    line-height: 1.7;
+    flex-grow: 1;
+    opacity: 0.85;
+}
+
+.project-cards ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.project-cards ul li {
+    margin-bottom: 12px;
+    color: var(--text-color);
+    font-size: 1em;
+    display: flex;
+    align-items: flex-start; /* Alinha o ícone com o topo do texto */
+}
+
+.project-cards ul li::before {
+    content: "🚀"; /* Ícone de foguete para um toque tech */
+    margin-right: 12px;
+    font-size: 1.1em;
+    line-height: 1.5; /* Garante que o ícone esteja alinhado verticalmente */
+}
+
+.project-cards .price {
+    font-size: 3.2em;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-top: 30px;
+    margin-bottom: 35px;
+    text-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--primary-color); /* Efeito de brilho duplo */
+    position: relative;
+    z-index: 1;
+}
+
+.project-cards .call-to-action-btn {
+    background: linear-gradient(90deg, var(--accent-color), var(--primary-color)); /* Gradiente no botão CTA */
+    color: var(--text-color);
+    padding: 16px 35px;
+    border: none;
+    border-radius: 50px; /* Botão pill-shaped */
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 100%;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3), 0 0 20px var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.project-cards .call-to-action-btn:hover {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-heavy), 0 0 30px var(--secondary-color);
+}
+
+#openPriceTableBtn {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* Responsividade Aprimorada */
+@media (max-width: 1200px) {
+    .modal-content {
+        max-width: 90%;
+        padding: 40px;
+    }
+    .price-table-container {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+    .project-cards {
+        padding: 30px;
+    }
+    .project-cards img {
+        height: 220px;
+    }
+}
+
+@media (max-width: 992px) {
+    header h1 {
+        font-size: 3em;
+    }
+    header p {
+        font-size: 1.1em;
+    }
+    #openPriceTableBtn {
+        padding: 16px 35px;
+        font-size: 1.2em;
+    }
+    .modal-contents {
+        padding: 30px;
+    }
+    .modal-contents h2 {
+        font-size: 2.5em;
+    }
+    .close-button {
+        font-size: 36px;
+        top: 20px;
+        right: 25px;
+    }
+    .price-table-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+    .project-cards {
+        padding: 25px;
+    }
+    .project-cards img {
+        height: 200px;
+    }
+    .project-cards h3 {
+        font-size: 1.8em;
+    }
+    .project-cards .price {
+        font-size: 2.8em;
+    }
+    .project-cards .call-to-action-btn {
+        padding: 14px 30px;
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    header {
+        padding: 40px 15px 30px;
+    }
+    header h1 {
+        font-size: 2.5em;
+    }
+    header p {
+        font-size: 1em;
+    }
+    #openPriceTableBtn {
+        padding: 14px 30px;
+        font-size: 1.1em;
+    }
+    .modal-contents {
+        padding: 25px;
+        margin: 2% auto;
+    }
+    .modal-contents h2 {
+        font-size: 2.2em;
+        margin-bottom: 40px;
+    }
+    .close-button {
+        font-size: 32px;
+        top: 15px;
+        right: 20px;
+        padding: 3px 12px;
+    }
+    .price-table-container {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+        gap: 20px;
+    }
+    .project-cards {
+        padding: 20px;
+    }
+    .project-cards img {
+        height: 180px;
+    }
+    .project-cards h3 {
+        font-size: 1.6em;
+    }
+    .project-cards .price {
+        font-size: 2.6em;
+        margin-top: 25px;
+        margin-bottom: 30px;
+    }
+    .project-cards .call-to-action-btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+}
+
+/* Responsividade atual */
 @media (max-width: 992px) {
     .hero-section {
         padding: 100px 20px;
